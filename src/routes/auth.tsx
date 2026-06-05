@@ -24,7 +24,7 @@ function AuthPage() {
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
-      if (data.user) navigate({ to: "/dashboard", replace: true });
+     if (data.user) navigate({ to: "/_authenticated/dashboard", replace: true });
     });
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, s) => {
       if (s?.user) navigate({ to: "/dashboard", replace: true });
@@ -55,7 +55,7 @@ function AuthPage() {
   };
 
   const google = async () => {
-    const r = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin + "/dashboard" });
+    const r = await lovable.auth.signInWithOAuth("google", {redirect_uri: window.location.origin + "/_authenticated/dashboard" });
     if (r.error) toast.error(r.error.message || "Google sign-in failed");
   };
 
